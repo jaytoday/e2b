@@ -1,112 +1,107 @@
+<p align="center">
+  <img width="100" src="/readme-assets/logo-circle.png" alt="e2b logo">
+</p>
+
 <h1 align="center">
-  <img width="200" src="docs-assets/logoname-black.svg#gh-light-mode-only" alt="e2b">
-  <img width="200" src="docs-assets/logoname-white.svg#gh-dark-mode-only" alt="e2b">
+  Cloud Runtime for AI Agents
 </h1>
 
-<p align="center">Open-source platform for building AI-powered virtual software developers</p>
+<h3 align="center">
+  Secure sandboxed cloud environments made for AI agents and AI apps
+</h3>
 
 <h4 align="center">
+  <a href="https://e2b.dev/docs">Docs</a> |
   <a href="https://e2b.dev">Website</a> |
   <a href="https://discord.gg/U7KEcGErtQ">Discord</a> |
   <a href="https://twitter.com/e2b_dev">Twitter</a>
 </h4>
 
 <h4 align="center">
-  <a href="https://discord.gg/U7KEcGErtQ">
-    <img src="https://img.shields.io/badge/chat-on%20Discord-blue" alt="Discord community server" />
+  <a href="https://pypi.org/project/e2b/">
+    <img alt="Last 1 month downloads for the Python SDK" loading="lazy" width="200" height="20" decoding="async" data-nimg="1"
+    style="color:transparent;width:auto;height:100%" src="https://img.shields.io/pypi/dm/e2b?label=PyPI%20Downloads">
   </a>
-  <a href="https://twitter.com/e2b_dev">
-    <img src="https://img.shields.io/twitter/follow/infisical?label=Follow" alt="e2b Twitter" />
+  <a href="https://www.npmjs.com/package/@e2b/sdk">
+    <img alt="Last 1 month downloads for the Python SDK" loading="lazy" width="200" height="20" decoding="async" data-nimg="1"
+    style="color:transparent;width:auto;height:100%" src="https://img.shields.io/npm/dm/%40e2b/sdk?label=NPM%20Downloads">
   </a>
 </h4>
 
-![e2b-editor](docs-assets/preview.gif)
+<img width="100%" src="/readme-assets/preview.png" alt="Cover image">
 
-[e2b](https://e2b.dev) or etob (*english2bits*) allows you to create & deploy virtual software developers. These virtual developers are powered by specialized AI agents that build software based on your instructions and can use tools.
+## What is E2B?
 
-Agents operate in our own secure sandboxed cloud environments that's powered by [Firecracker](https://github.com/firecracker-microvm/firecracker/).
+E2B Sandbox is a secure sandboxed cloud environment made for AI agents and AI
+apps. Sandboxes allow AI agents and apps to have long running cloud secure
+environments. In these environments, large language models can use the same
+tools as humans do. For example:
 
-e2b currently supports building only REST servers in Node.js. Specifically using the [Express](https://expressjs.com/) framework. We'll support more use-cases with time.
+- Cloud browsers
+- GitHub repositories and CLIs
+- Coding tools like linters, autocomplete, "go-to defintion"
+- Running LLM generated code
+- Audio & video editing
 
-# 🚀 Get started
-We're working on the cloud-hosted version. In the meantime, the fastest way try out e2b is to run it locally via Docker.
+**The E2B sandbox can be connected to any LLM and any AI agent or app.**
 
-## 🐳 Start e2b with Docker
-You will need:
-- [OpenAI API key](https://platform.openai.com/account/api-keys) (support for more and custom models coming soon)
-- Docker
-- Node.js *16+*
-- Free ports 3000 (Next.js app), 54321 (Supabase API Gateway), 54322 (Supabase Database)
+## Getting Started & Documentation
 
-To start e2b run:
+> Please visit [documentation](https://e2b.dev/docs) to get started.
+
+To create and control a sandbox, you use our SDK:
+
+### Python
+
+#### Install SDK
+
+```bash
+pip install e2b
 ```
-npm start
+
+#### Start sandbox
+
+```py
+from e2b import Sandbox
+
+# Create sandbox
+sandbox = Sandbox()
+
+# Let an LLM use the sandbox here
+# Visit https://e2b.dev/docs/sandbox/overview to learn more about sandboxes.
+
+# Close sandbox once done
+sandbox.close()
 ```
 
-Then open page on [http://localhost:3000](http://localhost:3000).
+### JavaScript & TypeScript
 
-`npm start` starts local Supabase in the background - to stop it you have to run `npm run stop`.
+#### Install SDK
 
-## 💻 Development setup
-For developing with hot reloading and contributing to the project you may want to run the app locally without Docker (`npm start` command).
+```bash
+npm install e2b
+```
 
-[Follow these steps](DEVELOPMENT_SETUP.md) to set it up.
+#### Start sandbox
 
-# Features
-## 🛠 Bring your own X
-While e2b will offer the "batteries-included" solution, our goal is to let users:
-- **BYOM** - Bring Your Own Model
-- **BYOP** - Bring Your Own Prompt
-- **BYOT** - Bring Your Own Tools
+```js
+import { Sandbox } from "e2b";
 
-## 🤖 Supported models and model hosting providers
-- [x] [OpenAI](https://openai.com/)
-  - [x] GPT-4
-  - [x] GTP-3.5
-- [x] [Anthropic](https://anthropic.com/)
-  - [x] Claude v1.3
-  - [x] Claude Instant v1
-- [x] [Replicate](https://replicate.com/)
-- [x] [Hugging Face](https://huggingface.co/)
-  - [x] Inference API
-  - [x] Inference Endpoints
-- [x] [Banana](https://www.banana.dev/)
+// Create sandbox
+const sandbox = await Sandbox.create();
 
-### **Model or model hosting provider you like isn't supported?**
+// Let an LLM use the sandbox here
+// Visit https://e2b.dev/docs/sandbox/overview to learn more about sandboxes.
 
-👉 Please open the ["New model request" issue](https://github.com/e2b-dev/e2b/issues/new?assignees=&labels=new+model+request&template=new-model-request.md&title=) 👈
+// Close sandbox once done
+await sandbox.close();
+```
 
-👉 Or open a PR and [start contributing](./CONTRIBUTING.md#🤖-adding-a-new-model-provider) 👈
+## Repository Structure
 
-## 👀 Early demos
-- [AI Agent using coding tools](https://twitter.com/mlejva/status/1636103084802822151)
-- [Build your custom "Just-In-Time" UI](https://twitter.com/mlejva/status/1641151421830529042)
-- [Agent coded a full Stripe customer checkout by following a technical spec provided by user](https://twitter.com/mlejva/status/1641072535163875330)
+This repository is a monorepo containing:
 
-# ℹ️ Community & Support
-- [Discord](https://discord.gg/U7KEcGErtQ) - live discussion and support
-- [GitHub issues](https://github.com/e2b-dev/e2b/issues) - for reporting bugs
-- [Twitter](https://twitter.com/e2b_dev) - to stay up to date
-
-# 🤝 Contributing
-We welcome any contributions! If you want to contribute to the project check out the [contibution guide](CONTRIBUTING.md) and join our [Discord](https://discord.gg/dSBY3ms2Qr).
-
-# 📆 Short-term Roadmap
-1. ✅ ~~Make sure people can run e2b locally without issues and the DX is smooth.~~
-2. 🚧 Add support for more models.
-    - ✅ ~~OpenAI~~
-    - ✅ ~~Anthropic~~
-    - Model hosting providers:
-      - ✅ ~~Replicate~~
-      - ✅ ~~Hugging Face Inference API~~
-      - ✅ ~~Hugging Face Inference Endpoints~~
-      - ✅ ~~Banana~~
-      - Paperspace
-3. 🚧 Improve agent's reliability and quality of output.
-4. 🚧 Improve the feedback loop (UX/UI) between the developer and agents.
-5. 🚧 Improve agent's understanding of the context based on the instructions.
-6. 🚧 Deployable agents.
-7. Support more tools and 3rd party integrations that agents can use.
-8. ✅ ~~Let users edit prompts.~~
-9. Let users customize tools and build custom workflows for the agent.
-10. Release cloud version.
+1. [Python SDK](/packages/python-sdk)
+1. [JS SDK](/packages/js-sdk)
+1. [CLI](/packages/cli)
+1. [Documentation](/apps/docs/)
